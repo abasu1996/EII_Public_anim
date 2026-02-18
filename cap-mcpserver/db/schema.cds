@@ -1,25 +1,17 @@
-using {
-  managed,
-  sap
-} from '@sap/cds/common';
-
-namespace sap.capire.bookshop;
+namespace my.bookshop;
 
 entity Books {
   key ID     : Integer;
-      title  : String;
-      stock  : Integer;
+      title  : String(100);
       author : Association to Authors;
-      genre  : Association to Genres;
+      stock  : Integer;
+      price  : Decimal(10, 2);
+      genre  : String(50);
 }
 
 entity Authors {
-  key ID    : Integer;
-      name  : String;
-      books : Association to many Books
-                on books.author = $self;
-}
-
-entity Genres : sap.common.CodeList {
-  key ID : Integer;
+  key ID      : Integer;
+      name    : String(100);
+      country : String(50);
+      books   : Association to many Books on books.author = $self;
 }

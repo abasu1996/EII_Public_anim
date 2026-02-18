@@ -1,63 +1,43 @@
-using {sap.capire.bookshop as my} from '../db/schema';
+using my.bookshop from '../db/schema';
 
 service CatalogService {
 
+  // Resource: Browse books with OData queries
+  @readonly
   @mcp: {
     name       : 'books',
-    description: 'Book data list',
-    resource   : true
+    description: 'Book catalog with search and filtering',
+    resource   : ['filter', 'orderby', 'select', 'top', 'skip']
   }
-  entity Books   as projection on my.Books;
+  entity Books as projection on bookshop.Books;
 
-  annotate CatalogService.Books with @mcp.wrap: {
-    tools: true,
-    modes: [
-      'query',
-      'get',
-    ],
-    hint : 'Use for read and write operations related to books'
-  };
-
-  extend projection Books with actions {
-    @mcp: {
-      name       : 'get-stock',
-      description: 'Gets the stock of a certain book',
-      tool       : true
-    }
-    function getStock() returns Integer;
-  }
-
-  entity Authors as projection on my.Authors;
-  entity Genres  as projection on my.Genres;
-
+  // Resource: Search authors
+  @readonly
   @mcp: {
-    name       : 'get-book-recommendation',
-    description: 'Gets a random book recommendation',
+    name       : 'authors',
+    description: 'Author directory',
+    resource   : ['filter', 'orderby', 'top']
+  }
+  entity Authors as projection on bookshop.Authors;
+
+  // Tool: Get recommendations
+  @mcp: {
+    name       : 'get-recommendations',
+    description: 'Get book recommendations by genre',
     tool       : true
   }
-  function getBookRecommendation() returns String;
+  function getRecommendations(
+    genre : String,
+    limit : Integer
+  ) returns array of String;
 
-  action   submitOrder(book : Books:ID @mandatory,
-                       quantity : Integer @mandatory
-  )                                returns {
-    stock : Integer
-  };
-
-  event OrderedBook : {
-    book     : Books:ID;
-    quantity : Integer;
-    buyer    : String
-  };
+  // Tool: Check availability
+  @mcp: {
+    name       : 'check-availability',
+    description: 'Check if a book is in stock',
+    tool       : true
+  }
+  function checkAvailability(
+    bookId : Integer
+  ) returns Boolean;
 }
-
-annotate CatalogService with @mcp.prompts: [{
-  name       : 'give-me-book-abstract',
-  title      : 'Book Abstract',
-  description: 'Gives an abstract of a book based on the title',
-  template   : 'Search the internet and give me an abstract of the book {{book-id}}',
-  role       : 'user',
-  inputs     : [{
-    key : 'book-id',
-    type: 'String'
-  }]
-}];

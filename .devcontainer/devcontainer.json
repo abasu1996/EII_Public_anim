@@ -2,9 +2,11 @@
   "name": "CAP Project in dev container",
   "build": {
     "dockerfile": "Dockerfile",
-    "args": { "VARIANT": "20" }
+    "args": {
+      "VARIANT": "20"
+    }
   },
-   "features": {
+  "features": {
     "ghcr.io/devcontainers/features/sshd:1": {
       "version": "latest"
     }
@@ -20,6 +22,8 @@
       ]
     }
   },
-  "forwardPorts": [ 4004 ],
+  "forwardPorts": [
+    4004
+  ],
   "remoteUser": "node"
-} 
+}
