@@ -2,5 +2,6 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
+    <Button text='Click Me! Ayubayu' press="onButtonClick" type="Emphasized" icon="sap-icon://accessibility"/> 
     </Page>
 </mvc:View>

@@ -5,6 +5,12 @@ sap.ui.define([
 
     return Controller.extend("ns.incidentfree.incidentfree.controller.im_main", {
         onInit() {
+            
+        },
+
+        onButtonClick:function(){
+            console.log("Button Clicked")
+            alert("Button Clicked")
         }
     });
 });
