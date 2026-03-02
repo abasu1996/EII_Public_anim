@@ -88,7 +88,7 @@ modules:
         properties:
           name: srv-api # must be used in xs-app.json as well
           url: ~{srv-url}
-          forwardAuthToken: false
+          forwardAuthToken: true
       - name: docgen-html5-runtime
       - name: docgen-auth
       - name: docgen-destination

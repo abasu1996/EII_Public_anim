@@ -1,6 +1,6 @@
 {
   "welcomeFile": "/docgenerator",
-  "authenticationMethod": "none",
+  "authenticationMethod": "route",
   "routes": [
     {
       "source": "^/test-resources/(.*)$",

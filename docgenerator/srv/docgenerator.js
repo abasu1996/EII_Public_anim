@@ -2,6 +2,7 @@ const cds = require("@sap/cds");
 const fs = require("fs");
 const dotenv = require("dotenv").config();
 const { DocGenerator, TemplateDocgenerator } = require("./docgeneratorclass");
+const papa = require("papaparse");
 
 const SapCfAxios = require("sap-cf-axios").default;
 module.exports = class generateDocument extends cds.ApplicationService {
